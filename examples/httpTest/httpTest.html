@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>addon</title>
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js" type="text/javascript"></script>
+</head>
+
+<body>
+  <div>
+    <input type="file" name="tmpFile" id="myinput">
+    <button>click me!</button>
+    <p>...</p>
+  </div>
+
+  <script type="text/javascript">
+    const hostname = '127.0.0.1';
+    const port = 8882;
+    $(function () {
+      var fd = new FormData();
+      $("button").bind("click", function () {
+        fd.append("tmpFile", document.getElementById('myinput').files[0]);
+        var url = "http://" + hostname + ":" + port + "/upload";
+        $.ajax({
+          url: url,
+          type: 'post',
+          data: fd,
+          processData: false,
+          contentType: false,
+          dataType: "json",
+        }).done(function (data) {
+          console.log(data, typeof data)
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
